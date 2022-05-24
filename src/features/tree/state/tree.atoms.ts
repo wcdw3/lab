@@ -1,13 +1,14 @@
 import { atom, atomFamily } from "recoil";
+import { TreeNode } from '../tree.types';
 
-export const currentRootNodeIdAtom = atom<string>({
-  key: 'tree/currentRootNodeIdAtom',
+export const currentRootTreeNodeIdAtom = atom<string>({
+  key: 'tree/currentRootTreeNodeIdAtom',
   default: '',
 });
 
-export const nodeAtom = atomFamily<Node | undefined, string>({
-  key: 'tree/nodeAtom',
+export const treeNodeAtom = atomFamily<TreeNode | undefined, string>({
+  key: 'tree/treeNodeAtom',
   default: undefined
-})
+});
 
 export default {};

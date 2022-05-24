@@ -1,10 +1,10 @@
 import { RecoilRoot } from 'recoil'
-import SortableTree from './features/tree/components/SortableTree'
+import Root from './containers/Root'
 
 function App() {
   return (
     <RecoilRoot>
-      <SortableTree />
+      <Root />
     </RecoilRoot>
   )
 }
