@@ -1,11 +1,11 @@
 import { RecoilRoot } from 'recoil'
-import Root from './containers/Root'
+import Page from './components/Page'
 
 function App() {
   return (
     <RecoilRoot>
-      <Root />
-    </RecoilRoot>
+      <Page />
+    </RecoilRoot >
   )
 }
 

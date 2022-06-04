@@ -1,56 +1,35 @@
-import React, { CSSProperties } from 'react'
-import { Button, HStack, Icon, IconButton, Text } from '@chakra-ui/react';
-import { MdFiberManualRecord } from 'react-icons/md';
+import { useSortable } from '@dnd-kit/sortable';
+import React from 'react'
 import { CSS } from '@dnd-kit/utilities';
-import { AnimateLayoutChanges, useSortable } from '@dnd-kit/sortable';
-import { UniqueIdentifier } from '@dnd-kit/core';
-import TreeItem from './TreeItem';
-import { iOS } from '../../../utils/device.util';
+import TreeItem, { GTreeItemProps } from './TreeItem';
 
-export interface SortableTreeItemProps {
-  id: UniqueIdentifier;
-  value: string;
-  depth: number;
-  indentationWidth: number;
+export interface SortableTreeItemProps extends GTreeItemProps {
+  id: string;
 }
 
-const animateLayoutChanges: AnimateLayoutChanges = ({ isSorting, wasDragging }) => !(isSorting || wasDragging);
-
-export default function SortableTreeItem({ id, value, depth, indentationWidth }: SortableTreeItemProps) {
+export default function SortableTreeItem({ id, ...props }: SortableTreeItemProps) {
   const {
     attributes,
-    isDragging,
-    isSorting,
     listeners,
-    setDraggableNodeRef,
-    setDroppableNodeRef,
+    setNodeRef,
     transform,
     transition,
-  } = useSortable({
-    id,
-    animateLayoutChanges,
-  });
+  } = useSortable({ id });
 
-  const style: CSSProperties = {
-    transform: CSS.Translate.toString(transform),
+  const style = {
+    transform: CSS.Transform.toString(transform),
     transition,
   };
 
   return (
     <TreeItem
-      value={value}
-      ref={setDraggableNodeRef}
-      wrapperRef={setDroppableNodeRef}
-      style={style}
-      depth={depth}
-      ghost={isDragging}
-      disableSelection={iOS}
-      disableInteraction={isSorting}
+      ref={setNodeRef}
       handleProps={{
         ...attributes,
         ...listeners,
       }}
-      indentationWidth={indentationWidth}
+      style={style}
+      {...props}
     />
-  )
+  );
 }
