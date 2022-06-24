@@ -14,3 +14,8 @@ export const userAtom = atomFamily<User | null, string>({
   key: 'find-atom/userAtom',
   default: null
 });
+
+export const nameInputValue = atom({
+  key: 'find-atom/nameInputValue',
+  default: ''
+})

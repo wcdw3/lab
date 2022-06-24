@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react'
 import { useInsertBulkUsers } from './hooks';
-import { getUsersByName, user } from './selectors';
+import NameInput from './NameInput';
+import UserList from './UserList';
 
 export default function FindAtomPage() {
-  const [name, setName] = useState<string>('');
   const insertBulkUsers = useInsertBulkUsers();
   useEffect(() => {
     insertBulkUsers([
@@ -39,8 +38,6 @@ export default function FindAtomPage() {
     ]);
   }, []);
 
-  const users = useRecoilValue(getUsersByName(name));
-
   return (
     <div>
       <div>
@@ -50,25 +47,10 @@ export default function FindAtomPage() {
       <hr />
       <div>
         <div style={{ display:'flex', marginBottom: '8px' }}>
-          <div style={{ marginRight: '8px' }}>name: </div>
-          <input onChange={(e) => { 
-            setName(e.target.value);
-          }}/>
+          <div style={{ marginRight: '8px' }}>Name: </div>
+          <NameInput />
         </div>
-        <div>
-          <div>Users</div>
-          {users.length > 0 && (
-            <ul style={{ marginTop: '4px' }}>
-              {users.map((u) => (
-                <li key={u.id}>
-                  <code>
-                    {`{ id: ${u.id}, name: ${u.name} }`}
-                    </code>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <UserList />
       </div>
     </div>
   )
